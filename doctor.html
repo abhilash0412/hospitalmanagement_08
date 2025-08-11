@@ -271,5 +271,32 @@
       "Dr. Ashish Jain": "pass14",
       "Dr. Sanya Kapoor": "pass15"
     };
+     document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const doc = document.getElementById('doctorName').value.trim();
+      const pwd = document.getElementById('password').value;
+      const loginMsg = document.getElementById('loginMsg');
 
+      if (passwords[doc] === pwd) {
+        sessionStorage.setItem("loggedInDoctor", doc);
+        loginMsg.textContent = "✅ Login successful! Redirecting...";
+        loginMsg.className = "success-message";
+        
+        setTimeout(() => {
+          window.location.href = "doctor-dashboard.html";
+        }, 1500);
+      } else {
+        loginMsg.textContent = "❌ Invalid credentials! Please check your username and password.";
+        loginMsg.className = "error-message";
+      }
+    };
 
+    // Auto-focus on password field when username is entered
+    document.getElementById('doctorName').addEventListener('input', function() {
+      if (this.value.length > 0) {
+        document.getElementById('password').focus();
+      }
+    });
+  </script>
+</body>
+</html>
